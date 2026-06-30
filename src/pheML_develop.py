@@ -393,7 +393,12 @@ def main() -> None:
     logging.info(f'Number of training samples: {len(X_train)}')
     logging.info(f'Number of testing samples: {len(X_test)}')
     logging.info(f'Number of features: {len(phecode_features_)}')
-
+    
+    #export processed data for later use
+    export_data = {"X_train":X_train,"y_train":y_train,"X_test":X_test,"y_test":y_test}
+    for table in export_data:
+        export_data[table].to_csv(output_path / f"{table}.csv", index=False)
+    
     logging.info('Training the model...')
     final_model = train_model(X_train, y_train, model_type=model_type)
 
