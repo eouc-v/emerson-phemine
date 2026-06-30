@@ -1,0 +1,23 @@
+
+# Call used:
+python src/phecode_enrichment_generate_reports.py --data_folder data --output_folder results/enrichment_test_0310 --trait test --input_prefix test_0310
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_test_0310
+# - trait: test
+# - input_prefix: test_0310
+# - phecode_map_file: data/sample_data/ICD_Phecode_mapping.csv
+
+Reading enrichment analysis results...
+The number of enriched phecode is: 5 (out of 50)
+Reading phecode map...
+Reading case control file: results/enrichment_test_0310/case_control_pairs_test_0310_train.txt
+Total number of cases: 72
+Minimum frequency threshold: 0 (Count > 0)
+Filtered 0 phecodes with low frequency.
+Generating statistics for enrichment analysis...
+
+Done. Report generated.
+
+

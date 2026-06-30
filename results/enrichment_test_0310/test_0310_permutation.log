@@ -1,0 +1,31 @@
+
+# Call used:
+python src/phecode_enrichment_with_permutation.py --control_fn results/enrichment_test_0310/case_control_pairs_test_0310_train.txt --output_path results/enrichment_test_0310 --output_prefix test_0310 --n_permute 10000
+
+# Arguments used:
+# - case_fn: ./sample_data/case_list.txt
+# - control_fn: results/enrichment_test_0310/case_control_pairs_test_0310_train.txt
+# - output_path: results/enrichment_test_0310
+# - output_prefix: test_0310
+# - control_delimiter: tab
+# - n_permute: 10000
+# - phecode_binary_feather_file: data/sample_data/phecode_binary.feather
+
+# Load list of cases and controls
+# - N cases=72
+# - Control file: 72
+
+# Load binary phecode table (lazy loading with polars)
+# - Binary phecode table loaded (lazy). N phecodes: 50
+
+# Pre-loading relevant samples into memory for fast access
+# - Loading 515 relevant samples into memory
+# - Data loaded into memory. Shape: (515, 50)
+
+# Calculate frequency of each phecode in cases
+
+# Calculate frequency of each phecode in controls with permutation
+
+# Calcualte p values
+
+# Done. Finished in 8.52 seconds

@@ -1,0 +1,24 @@
+
+# Call used:
+python src/find_matched_controls.py --icd_count -1 --result_path results/enrichment_test_0310 --result_filename case_control_pairs_test_0310 --control_exclusion_list data/sample_data/excluded_controls.txt
+
+# Arguments used:
+# - icd_count: -1
+# - result_path: results/enrichment_test_0310
+# - result_filename: case_control_pairs_test_0310
+# - case_path: data/sample_data/cases.csv
+# - demographics_file: data/sample_data/demographics.csv
+# - depth_of_record_path: data/sample_data/depth_of_record.csv
+# - control_exclusion_list: data/sample_data/excluded_controls.txt
+# - train_split_ratio: 0.8
+Importing data...
+
+Finding matches...
+
+Removed 9 cases with no matched controls
+Saved 72 training pairs to results/enrichment_test_0310/case_control_pairs_test_0310_train.txt
+Saved 19 test pairs to results/enrichment_test_0310/case_control_pairs_test_0310_test.txt
+
+# Done. Finished in 0.48 seconds
+
+

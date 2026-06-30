@@ -1,0 +1,33 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/enrichment_test_0310 --trait test --output_prefix test_0310 --model_type RF --matched_controls_for_ML 1 --n_controls_per_case 5
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_test_0310
+# - trait: test
+# - output_prefix: test_0310
+# - model_type: RF
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 458 relevant samples (cases + controls)...
+Number of training samples: 362
+Number of testing samples: 96
+Number of features: 5
+Training the model...
+Best trial parameters: {'n_estimators': 10, 'max_depth': None, 'min_samples_split': 2, 'min_samples_leaf': 4, 'bootstrap': False}
+Best cross-validation accuracy: 0.9502283105022832
+Reading phecode map...
+Plotting model results...
+Loaded backend agg version v2.2.
+Saved top 10 feature importance plot to results/enrichment_test_0310/test_0310_rf_feature_importance_top10.png
+Computing permutation importance for RF model...
+Saved permutation importance results to results/enrichment_test_0310/test_0310_RF_permutation_importance.csv
+Saved permutation importance plot to results/enrichment_test_0310/test_0310_RF_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x77c27a93e550>
+Precision is: 0.77
+AUC is: 0.92
+Saving model...
+Done. Model building completed.
