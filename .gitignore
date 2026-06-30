@@ -40,8 +40,6 @@ ENV/
 Thumbs.db
 
 # Project specific
-results/*
-!results/.gitkeep
 data/*
 !data/.gitkeep
 !data/test_case.csv
