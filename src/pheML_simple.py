@@ -8,6 +8,7 @@ Mostly just for testing custom models in the pheML code
 from pheML_develop import train_model
 from pathlib import Path
 import sys,argparse
+import pandas as pd
 
 def process_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -18,19 +19,20 @@ def process_args() -> argparse.Namespace:
     
     args = parser.parse_args()
     
-    return_args()
+    return args
     
 def main():
     #get args from command line
     args = process_args()
-    train_path = args.train_folder
+    train_path = Path(args.train_folder)
     model_type = args.model_type
 
     X = pd.read_csv(train_path / "X_train.csv")
     y = pd.read_csv(train_path / "y_train.csv")
     print(X)
     print(y)
+
     #final_model = train_model()
     
 if __name__ == '__main__':
-    main
+    main()
