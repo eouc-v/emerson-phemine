@@ -241,7 +241,7 @@ def train_model(
                     'random_state': random_state
                     }
                 base_model = RidgeClassifier(**params)
-            case 'RR'
+            case 'RR':
                 params = {
                     'alpha': trial.suggest_categorical('alpha',[0.1,0.5,1.0]),
                     'random_state': random_state
