@@ -236,12 +236,7 @@ def train_model(
                 }
                 base_model = MLPClassifier(**params)
             case 'LR':
-                params = {
-                    'fit_intercept': True,
-                    'copy_X': True,
-                    'tol':1e-06
-                    }
-                base_model = LinearRegression(**params)   
+                raise Error('Linear Regression models do not support hyperparameter tuning. This message should not have occurred')
                 
             case _:
                 raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
@@ -249,29 +244,34 @@ def train_model(
         cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
         scores = cross_val_score(base_model, X_train, y_train, cv=cv, scoring='accuracy', n_jobs=n_jobs)
         return scores.mean()
-
-    # Determine number of trials based on previous n_iter logic
-    if model_type.upper() == 'CART':
-        n_trials = 10
-    elif model_type.upper() == 'RF':
-        n_trials = 50
-    elif model_type.upper() == 'XG':
-        n_trials = 20
-    elif model_type.upper() in ['NN', 'MLP']:
-        n_trials = 20
-    else:
-        n_trials = 20
-
-    optuna.logging.set_verbosity(optuna.logging.WARNING if verbose < 2 else optuna.logging.INFO)
-    study = optuna.create_study(direction='maximize', sampler=optuna.samplers.TPESampler(seed=random_state))
-    study.optimize(objective, n_trials=n_trials)
-
-    if verbose > 0:
-        logging.info(f"Best trial parameters: {study.best_params}")
-        logging.info(f"Best cross-validation accuracy: {study.best_value}")
-
-    # Recreate the best model
-    best_params = study.best_params
+    
+    #just convert the model type to uppercase once for the sake of convenience
+    model_type = model_type.upper()
+    
+    if model_type.upper() != 'LR':
+    
+        # Determine number of trials based on previous n_iter logic
+        if model_type.upper() == 'CART':
+            n_trials = 10
+        elif model_type.upper() == 'RF':
+            n_trials = 50
+        elif model_type.upper() == 'XG':
+            n_trials = 20
+        elif model_type.upper() in ['NN', 'MLP']:
+            n_trials = 20
+        else:
+            n_trials = 20
+    
+        optuna.logging.set_verbosity(optuna.logging.WARNING if verbose < 2 else optuna.logging.INFO)
+        study = optuna.create_study(direction='maximize', sampler=optuna.samplers.TPESampler(seed=random_state))
+        study.optimize(objective, n_trials=n_trials)
+    
+        if verbose > 0:
+            logging.info(f"Best trial parameters: {study.best_params}")
+            logging.info(f"Best cross-validation accuracy: {study.best_value}")
+    
+        # Recreate the best model
+        best_params = study.best_params
     
     if model_type.upper() == 'CART':
         final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
@@ -285,6 +285,9 @@ def train_model(
     elif model_type.upper() in ['NN', 'MLP']:
         final_params = {**best_params, 'max_iter': 500, 'random_state': random_state}
         final_model = MLPClassifier(**final_params)
+    elif model_type.upper() == 'LR':
+        final_params = {'random_state':random_state}
+        final_model = LinearRegression(**final_params)
         
     final_model.fit(X_train, y_train)
     return final_model
