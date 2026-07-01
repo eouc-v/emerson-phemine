@@ -6,7 +6,7 @@ from scipy.stats import randint
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Ridge, RidgeClassifier
 import optuna
 
 from sklearn.neural_network import MLPClassifier
@@ -235,6 +235,18 @@ def train_model(
                     'random_state': random_state
                 }
                 base_model = MLPClassifier(**params)
+            case 'RC':
+                params = {
+                    'alpha': trial.suggest_categorical('alpha',[0.1,0.5,1.0]),
+                    'random_state': random_state
+                    }
+                base_model = RidgeClassifier(**params)
+            case 'RR'
+                params = {
+                    'alpha': trial.suggest_categorical('alpha',[0.1,0.5,1.0]),
+                    'random_state': random_state
+                    }
+                base_model = Ridge(**params)  
             case 'LR':
                 raise Exception('Linear Regression models do not support hyperparameter tuning. This message should not have occurred')
                 
