@@ -184,7 +184,7 @@ def train_model(
     '''
     
     def objective(trial):
-        match model_type.upper():
+        match model_type:
             case 'CART':
                 m = X_train.shape[1]
                 params = {
@@ -248,16 +248,16 @@ def train_model(
     #just convert the model type to uppercase once for the sake of convenience
     model_type = model_type.upper()
     
-    if model_type.upper() != 'LR':
+    if model_type != 'LR':
     
         # Determine number of trials based on previous n_iter logic
-        if model_type.upper() == 'CART':
+        if model_type == 'CART':
             n_trials = 10
-        elif model_type.upper() == 'RF':
+        elif model_type == 'RF':
             n_trials = 50
-        elif model_type.upper() == 'XG':
+        elif model_type == 'XG':
             n_trials = 20
-        elif model_type.upper() in ['NN', 'MLP']:
+        elif model_type in ['NN', 'MLP']:
             n_trials = 20
         else:
             n_trials = 20
@@ -273,20 +273,20 @@ def train_model(
         # Recreate the best model
         best_params = study.best_params
     
-    if model_type.upper() == 'CART':
+    if model_type == 'CART':
         final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
         final_model = DecisionTreeClassifier(**final_params)
-    elif model_type.upper() == 'RF':
+    elif model_type == 'RF':
         final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
         final_model = RandomForestClassifier(**final_params)
-    elif model_type.upper() == 'XG':
+    elif model_type == 'XG':
         final_params = {**best_params, 'eval_metric': 'logloss', 'random_state': random_state, 'use_label_encoder': False}
         final_model = XGBClassifier(**final_params)
-    elif model_type.upper() in ['NN', 'MLP']:
+    elif model_type in ['NN', 'MLP']:
         final_params = {**best_params, 'max_iter': 500, 'random_state': random_state}
         final_model = MLPClassifier(**final_params)
-    elif model_type.upper() == 'LR':
-        final_params = {'random_state':random_state}
+    elif model_type == 'LR': #tuning was skipped if it was a linear regression, so this just gives it empty parameters for consistency
+        final_params = {}
         final_model = LinearRegression(**final_params)
         
     final_model.fit(X_train, y_train)
