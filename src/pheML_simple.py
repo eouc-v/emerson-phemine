@@ -39,7 +39,7 @@ def main():
     #train the model
     model = train_model(X_train,y_train,model_type)
     #plot a confusion matrix for the model using a function from plotting.py (which also saves it)
-    precision = plot_CM(model,X_test,y_test,train_path,'Trait',prefix)
+    precision = plot_CM(model,X_test,y_test,train_path,model_type,'Trait',prefix)
     
     
 if __name__ == '__main__':
