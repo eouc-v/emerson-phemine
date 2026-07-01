@@ -8,6 +8,7 @@ Mostly just for testing custom models in the pheML code
 from pheML_develop import train_model, setup_log
 from plotting import plot_CM
 
+import joblib
 from pathlib import Path
 import sys,argparse
 
@@ -48,7 +49,12 @@ def main():
     #train the model
     model = train_model(X_train,y_train,model_type,verbose=3)
     #plot a confusion matrix for the model using a function from plotting.py (which also saves it)
-    precision = plot_CM(model,X_test,y_test,output_path,model_type,'Trait',prefix)
+    try:
+        precision = plot_CM(model,X_test,y_test,output_path,model_type,'Trait',prefix)
+    except:
+        raise ValueError("Model was unsupported by confusion matrix generator; probably not a classifier")
+    #save the model with joblib
+    joblib.dump(model,output_path / f"test_{model_type}_{prefix}.model")
     
     
 if __name__ == '__main__':

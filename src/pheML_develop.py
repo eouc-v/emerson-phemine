@@ -236,7 +236,7 @@ def train_model(
                 }
                 base_model = MLPClassifier(**params)
             case 'LR':
-                raise Error('Linear Regression models do not support hyperparameter tuning. This message should not have occurred')
+                raise Exception('Linear Regression models do not support hyperparameter tuning. This message should not have occurred')
                 
             case _:
                 raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
