@@ -17,6 +17,7 @@ def process_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     
     parser.add_argument('--train_folder',default='results/enrichment_test_0310') #where X_train & y_train are stored. normally the standard test output
+    parser.add_argument('--output_folder',default='results/model_test_0311') #where results (models, images, etc.) are placed
     parser.add_argument('--model_type',default='LR') #type of model (RF, CART, etc.). defaults to linear regression
     parser.add_argument('--name',default='0311') #prefix to use when saving files to avoid name conflicts
     
@@ -27,7 +28,12 @@ def process_args() -> argparse.Namespace:
 def main():
     #get args from command line
     args = process_args()
+    #assign important paths
     train_path = Path(args.train_folder)
+    output_path = Path(args.output_folder)
+    #make an output folder if it's not there (exist_ok prevents an error if it is)
+    output_path.mkdir(parents=True,exist_ok=True)
+    #assign other important arguments
     model_type = args.model_type
     prefix = args.name
     #import training data
