@@ -46,7 +46,7 @@ def main():
     fn_log = output_path / f'{prefix}_test_logs'
     setup_log(fn_log,mode='a')
     #train the model
-    model = train_model(X_train,y_train,model_type)
+    model = train_model(X_train,y_train,model_type,verbose=3)
     #plot a confusion matrix for the model using a function from plotting.py (which also saves it)
     precision = plot_CM(model,X_test,y_test,output_path,model_type,'Trait',prefix)
     
