@@ -52,7 +52,7 @@ def main():
     try:
         precision = plot_CM(model,X_test,y_test,output_path,model_type,'Trait',prefix)
     except:
-        raise ValueError("Model was unsupported by confusion matrix generator; probably not a classifier")
+        print("Model was unsupported by confusion matrix generator; probably not a classifier")
     #save the model with joblib
     joblib.dump(model,output_path / f"test_{model_type}_{prefix}.model")
     
