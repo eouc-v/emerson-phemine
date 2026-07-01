@@ -43,7 +43,7 @@ def main():
     X_test = pd.read_csv(train_path / "X_test.csv")
     y_test = pd.read_csv(train_path / "y_test.csv")
     #set up the log so train_model can do something
-    fn_log = output_path / f'{name}_test_logs'
+    fn_log = output_path / f'{prefix}_test_logs'
     setup_log(fn_log,mode='a')
     #train the model
     model = train_model(X_train,y_train,model_type)
