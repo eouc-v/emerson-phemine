@@ -236,8 +236,13 @@ def train_model(
                 }
                 base_model = MLPClassifier(**params)
             case 'LR':
-                
-                base_model = LinearRegression()   
+                params = {
+                    'fit_intercept': True,
+                    'copy_X': True,
+                    'tol':1e-06,
+                    'random_state': random_state
+                    }
+                base_model = LinearRegression(**params)   
                 
             case _:
                 raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
