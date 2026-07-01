@@ -6,6 +6,7 @@ from scipy.stats import randint
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
+from sklearn.linear_model import LinearRegression
 import optuna
 
 from sklearn.neural_network import MLPClassifier
@@ -183,61 +184,66 @@ def train_model(
     '''
     
     def objective(trial):
-        if model_type.upper() == 'CART':
-            m = X_train.shape[1]
-            params = {
-                'max_depth': trial.suggest_int('max_depth', 1, 10),
-                'min_samples_split': trial.suggest_int('min_samples_split', 2, 20),
-                'min_samples_leaf': trial.suggest_int('min_samples_leaf', 1, 10),
-                'max_features': trial.suggest_int('max_features', max(1, m // 2), m),
-                'random_state': random_state,
-                'class_weight': 'balanced'
-            }
-            base_model = DecisionTreeClassifier(**params)
-            
-        elif model_type.upper() == 'RF':
-            params = {
-                'n_estimators': trial.suggest_categorical('n_estimators', [10, 50, 100, 200]),
-                'max_depth': trial.suggest_categorical('max_depth', [None, 10, 20, 30, 40]),
-                'min_samples_split': trial.suggest_categorical('min_samples_split', [2, 5, 10]),
-                'min_samples_leaf': trial.suggest_categorical('min_samples_leaf', [1, 2, 4]),
-                'bootstrap': trial.suggest_categorical('bootstrap', [True, False]),
-                'random_state': random_state,
-                'class_weight': 'balanced'
-            }
-            base_model = RandomForestClassifier(**params)
-            
-        elif model_type.upper() == 'XG':
-            params = {
-                'n_estimators': trial.suggest_categorical('n_estimators', [50, 100, 200]),
-                'learning_rate': trial.suggest_categorical('learning_rate', [0.01, 0.1, 0.2]),
-                'max_depth': trial.suggest_categorical('max_depth', [3, 5, 7]),
-                'colsample_bytree': trial.suggest_categorical('colsample_bytree', [0.6, 0.8, 1.0]),
-                'subsample': trial.suggest_categorical('subsample', [0.7, 0.8, 1.0]),
-                'reg_alpha': trial.suggest_categorical('reg_alpha', [0, 0.1, 1]),
-                'reg_lambda': trial.suggest_categorical('reg_lambda', [1, 1.5, 2]),
-                'eval_metric': 'logloss',
-                'random_state': random_state,
-                'use_label_encoder': False
-            }
-            base_model = XGBClassifier(**params)
-            
-        elif model_type.upper() in ['NN', 'MLP']:
-            params = {
-                'hidden_layer_sizes': trial.suggest_categorical('hidden_layer_sizes', [(50,), (100,), (50, 50), (100, 50), (100, 100)]),
-                'activation': trial.suggest_categorical('activation', ['relu', 'tanh', 'logistic']),
-                'solver': trial.suggest_categorical('solver', ['adam', 'sgd']),
-                'alpha': trial.suggest_categorical('alpha', [0.0001, 0.001, 0.01]),
-                'learning_rate': trial.suggest_categorical('learning_rate', ['constant', 'adaptive']),
-                'max_iter': 500,
-                'random_state': random_state
-            }
-            base_model = MLPClassifier(**params)
-        else:
-            raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
-
-        cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-        scores = cross_val_score(base_model, X_train, y_train, cv=cv, scoring='accuracy', n_jobs=n_jobs)
+        match model_type.upper():
+            case 'CART':
+                m = X_train.shape[1]
+                params = {
+                    'max_depth': trial.suggest_int('max_depth', 1, 10),
+                    'min_samples_split': trial.suggest_int('min_samples_split', 2, 20),
+                    'min_samples_leaf': trial.suggest_int('min_samples_leaf', 1, 10),
+                    'max_features': trial.suggest_int('max_features', max(1, m // 2), m),
+                    'random_state': random_state,
+                    'class_weight': 'balanced'
+                }
+                base_model = DecisionTreeClassifier(**params)
+                
+            case 'RF':
+                params = {
+                    'n_estimators': trial.suggest_categorical('n_estimators', [10, 50, 100, 200]),
+                    'max_depth': trial.suggest_categorical('max_depth', [None, 10, 20, 30, 40]),
+                    'min_samples_split': trial.suggest_categorical('min_samples_split', [2, 5, 10]),
+                    'min_samples_leaf': trial.suggest_categorical('min_samples_leaf', [1, 2, 4]),
+                    'bootstrap': trial.suggest_categorical('bootstrap', [True, False]),
+                    'random_state': random_state,
+                    'class_weight': 'balanced'
+                }
+                base_model = RandomForestClassifier(**params)
+                
+            case 'XG':
+                params = {
+                    'n_estimators': trial.suggest_categorical('n_estimators', [50, 100, 200]),
+                    'learning_rate': trial.suggest_categorical('learning_rate', [0.01, 0.1, 0.2]),
+                    'max_depth': trial.suggest_categorical('max_depth', [3, 5, 7]),
+                    'colsample_bytree': trial.suggest_categorical('colsample_bytree', [0.6, 0.8, 1.0]),
+                    'subsample': trial.suggest_categorical('subsample', [0.7, 0.8, 1.0]),
+                    'reg_alpha': trial.suggest_categorical('reg_alpha', [0, 0.1, 1]),
+                    'reg_lambda': trial.suggest_categorical('reg_lambda', [1, 1.5, 2]),
+                    'eval_metric': 'logloss',
+                    'random_state': random_state,
+                    'use_label_encoder': False
+                }
+                base_model = XGBClassifier(**params)
+                
+            case 'NN' | 'MLP':
+                params = {
+                    'hidden_layer_sizes': trial.suggest_categorical('hidden_layer_sizes', [(50,), (100,), (50, 50), (100, 50), (100, 100)]),
+                    'activation': trial.suggest_categorical('activation', ['relu', 'tanh', 'logistic']),
+                    'solver': trial.suggest_categorical('solver', ['adam', 'sgd']),
+                    'alpha': trial.suggest_categorical('alpha', [0.0001, 0.001, 0.01]),
+                    'learning_rate': trial.suggest_categorical('learning_rate', ['constant', 'adaptive']),
+                    'max_iter': 500,
+                    'random_state': random_state
+                }
+                base_model = MLPClassifier(**params)
+            case 'LR':
+                
+                base_model = LinearRegression()   
+                
+            case _:
+                raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
+    
+            cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+            scores = cross_val_score(base_model, X_train, y_train, cv=cv, scoring='accuracy', n_jobs=n_jobs)
         return scores.mean()
 
     # Determine number of trials based on previous n_iter logic
