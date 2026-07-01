@@ -239,8 +239,7 @@ def train_model(
                 params = {
                     'fit_intercept': True,
                     'copy_X': True,
-                    'tol':1e-06,
-                    'random_state': random_state
+                    'tol':1e-06
                     }
                 base_model = LinearRegression(**params)   
                 
