@@ -5,7 +5,7 @@ Mostly just for testing custom models in the pheML code
 (Without re-running the entire pipeline each time testing is needed)
 """
 
-from pheML_develop import train_model
+from pheML_develop import train_model, setup_log
 from plotting import plot_CM
 
 from pathlib import Path
@@ -42,6 +42,9 @@ def main():
     #import testing data
     X_test = pd.read_csv(train_path / "X_test.csv")
     y_test = pd.read_csv(train_path / "y_test.csv")
+    #set up the log so train_model can do something
+    fn_log = output_path / f'{name}_test_logs'
+    setup_log(fn_log,mode='a')
     #train the model
     model = train_model(X_train,y_train,model_type)
     #plot a confusion matrix for the model using a function from plotting.py (which also saves it)
