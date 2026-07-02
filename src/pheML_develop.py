@@ -241,9 +241,9 @@ def train_model(
                     'random_state': random_state
                     }
                 base_model = RidgeClassifier(**params)
-            case 'RR':
+            case 'RR': #this really doesn't work for some reason involving classification metrics
                 params = {
-                    'alpha': trial.suggest_categorical('alpha',[0.1,0.5,1.0]),
+                    'alpha': trial.suggest_categorical('alpha',[0.3,0.4,0.45,0.5,0.55,1.0]),
                     'random_state': random_state
                     }
                 base_model = Ridge(**params)  
@@ -286,22 +286,29 @@ def train_model(
         # Recreate the best model
         best_params = study.best_params
     
-    if model_type == 'CART':
-        final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
-        final_model = DecisionTreeClassifier(**final_params)
-    elif model_type == 'RF':
-        final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
-        final_model = RandomForestClassifier(**final_params)
-    elif model_type == 'XG':
-        final_params = {**best_params, 'eval_metric': 'logloss', 'random_state': random_state, 'use_label_encoder': False}
-        final_model = XGBClassifier(**final_params)
-    elif model_type in ['NN', 'MLP']:
-        final_params = {**best_params, 'max_iter': 500, 'random_state': random_state}
-        final_model = MLPClassifier(**final_params)
-    elif model_type == 'LR': #tuning was skipped if it was a linear regression, so this just gives it empty parameters for consistency
-        final_params = {}
-        final_model = LinearRegression(**final_params)
-        
+    match model_type:
+        case 'CART':
+            final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
+            final_model = DecisionTreeClassifier(**final_params)
+        case 'RF':
+            final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
+            final_model = RandomForestClassifier(**final_params)
+        case 'XG':
+            final_params = {**best_params, 'eval_metric': 'logloss', 'random_state': random_state, 'use_label_encoder': False}
+            final_model = XGBClassifier(**final_params)
+        case 'NN' | 'MLP':
+            final_params = {**best_params, 'max_iter': 500, 'random_state': random_state}
+            final_model = MLPClassifier(**final_params)
+        case 'LR': #tuning was skipped if it was a linear regression, so this just gives it empty parameters for consistency
+            final_params = {}
+            final_model = LinearRegression(**final_params)
+        case 'RR': #tuning also skipped here
+            final_params = {'alpha':0.5,'random_state':random_state}
+            final_model = Ridge(**final_params)
+        case 'RC':
+            final_params = {**best_params,'random_state':random_state}
+            final_model = RidgeClassifier(**final_params)    
+            
     final_model.fit(X_train, y_train)
     return final_model
 
