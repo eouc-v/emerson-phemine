@@ -8,3 +8,15 @@ Best trial parameters: {'alpha': 0.5}
 Best cross-validation accuracy: 0.9585996955859969
 Loaded backend agg version v2.2.
 locator: <matplotlib.ticker.AutoLocator object at 0x72c1deb51990>
+Best trial parameters: {'max_depth': 9, 'min_samples_split': 6, 'min_samples_leaf': 2, 'max_features': 2}
+Best cross-validation accuracy: 0.9420471841704717
+Loaded backend agg version v2.2.
+locator: <matplotlib.ticker.AutoLocator object at 0x785a5173fed0>
+Best trial parameters: {'n_estimators': 200, 'learning_rate': 0.01, 'max_depth': 7, 'colsample_bytree': 0.6, 'subsample': 1.0, 'reg_alpha': 0, 'reg_lambda': 1.5}
+Best cross-validation accuracy: 0.9558599695585996
+Loaded backend agg version v2.2.
+locator: <matplotlib.ticker.AutoLocator object at 0x7563a3d07850>
+Best trial parameters: {'hidden_layer_sizes': (100,), 'activation': 'relu', 'solver': 'sgd', 'alpha': 0.001, 'learning_rate': 'constant'}
+Best cross-validation accuracy: 0.9558219178082193
+Loaded backend agg version v2.2.
+locator: <matplotlib.ticker.AutoLocator object at 0x7934a97b2f10>
