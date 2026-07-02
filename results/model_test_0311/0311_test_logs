@@ -4,3 +4,7 @@ Loaded backend agg version v2.2.
 locator: <matplotlib.ticker.AutoLocator object at 0x797b4b37d190>
 Best trial parameters: {'alpha': 0.5}
 Best cross-validation accuracy: 0.9585996955859969
+Best trial parameters: {'alpha': 0.5}
+Best cross-validation accuracy: 0.9585996955859969
+Loaded backend agg version v2.2.
+locator: <matplotlib.ticker.AutoLocator object at 0x72c1deb51990>
