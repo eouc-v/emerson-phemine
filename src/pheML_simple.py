@@ -22,7 +22,7 @@ def process_args() -> argparse.Namespace:
     parser.add_argument('--output_folder',default='results/model_test_0311') #where results (models, images, etc.) are placed
     parser.add_argument('--model_type',default='LR') #type of model (RF, CART, etc.). defaults to linear regression
     parser.add_argument('--name',default='0311') #prefix to use when saving files to avoid name conflicts
-    parser.add_argument('--reg_type',nargs='*',default='')
+    parser.add_argument('--reg_type',type=float,nargs='*',default='')
     
     args = parser.parse_args()
     

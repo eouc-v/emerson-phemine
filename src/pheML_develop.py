@@ -239,7 +239,7 @@ def train_model(
             case 'LR':
                 params = { 
                     'l1_ratio': trial.suggest_categorical('l1_ratio',reg),
-                    'C': trial.suggest_categorical('C',[0.1,0.5,1.0])
+                    'C': trial.suggest_categorical('C',[0.1,0.5,1.0]),
                     'random_state': random_state,
                     'solver': trial.suggest_categorical('solver',[ 'lbfgs','liblinear','saga' ])
                     }
@@ -306,7 +306,7 @@ def train_model(
             final_model = MLPClassifier(**final_params)
         case 'LR': #logistic regression
             final_params = {**best_params,'random_state':random_state}
-            final_model = LinearRegression(**final_params)
+            final_model = LogisticRegression(**final_params)
         case 'RR': #this really shouldn't happen since it would have crashed in tuning
             final_params = {'alpha':0.5,'random_state':random_state}
             final_model = Ridge(**final_params)
