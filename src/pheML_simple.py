@@ -1,5 +1,6 @@
 """
 Trains a model with pheML_develop's train_model() function
+Saves the model + confusion matrix to a separate folder
 Uses data saved by the main pipeline 
 Mostly just for testing custom models in the pheML code
 (Without re-running the entire pipeline each time testing is needed)
