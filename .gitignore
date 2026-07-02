@@ -46,6 +46,7 @@ data/*
 
 !data/sample_data/
 !data/sample_data/*
+results/*/*_test_logs
 
 # Snakemake
 .snakemake/
