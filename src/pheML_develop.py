@@ -254,7 +254,8 @@ def train_model(
                 raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
     
         cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-        scores = cross_val_score(base_model, X_train, y_train, cv=cv, scoring='accuracy', n_jobs=n_jobs)
+        scores = cross_val_score(base_model, X_train, y_train, cv=cv, scoring='accuracy', n_jobs=n_jobs,error_score='raise')
+        print(scores)
         return scores.mean()
     
     #just convert the model type to uppercase once for the sake of convenience
