@@ -22,6 +22,7 @@ def process_args() -> argparse.Namespace:
     parser.add_argument('--output_folder',default='results/model_test_0311') #where results (models, images, etc.) are placed
     parser.add_argument('--model_type',default='LR') #type of model (RF, CART, etc.). defaults to linear regression
     parser.add_argument('--name',default='0311') #prefix to use when saving files to avoid name conflicts
+    parser.add_argument('--reg_type',nargs='*',default='')
     
     args = parser.parse_args()
     
@@ -38,6 +39,7 @@ def main():
     #assign other important arguments
     model_type = args.model_type
     prefix = args.name
+    reg = args.reg_type
     #import training data
     X_train = pd.read_csv(train_path / "X_train.csv")
     y_train = pd.read_csv(train_path / "y_train.csv")
@@ -48,7 +50,7 @@ def main():
     fn_log = output_path / f'{prefix}_test_logs'
     setup_log(fn_log,mode='a')
     #train the model
-    model = train_model(X_train,y_train,model_type,verbose=3)
+    model = train_model(X_train,y_train,model_type,verbose=3,reg=reg)
     #plot a confusion matrix for the model using a function from plotting.py (which also saves it)
     try:
         precision = plot_CM(model,X_test,y_test,output_path,model_type,'Trait',prefix)

@@ -6,7 +6,7 @@ from scipy.stats import randint
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
-from sklearn.linear_model import LinearRegression, Ridge, RidgeClassifier
+from sklearn.linear_model import LinearRegression, Ridge, RidgeClassifier, LogisticRegression
 import optuna
 
 from sklearn.neural_network import MLPClassifier
@@ -168,7 +168,8 @@ def train_model(
     model_type: str = 'RF',
     random_state: int = 42,
     verbose: int = 2,
-    n_jobs: int = -1
+    n_jobs: int = -1,
+    reg: list[float] = [0.0]
 ) -> Any:
     '''
     Train a machine learning model with hyperparameter tuning using Optuna.
@@ -235,9 +236,17 @@ def train_model(
                     'random_state': random_state
                 }
                 base_model = MLPClassifier(**params)
+            case 'LR':
+                params = { 
+                    'l1_ratio': trial.suggest_categorical('l1_ratio',reg),
+                    'C': trial.suggest_categorical('C',[0.1,0.5,1.0])
+                    'random_state': random_state,
+                    'solver': trial.suggest_categorical('solver',[ 'lbfgs','liblinear','saga' ])
+                    }
+                base_model = LogisticRegression(**params)
             case 'RC':
                 params = {
-                    'alpha': trial.suggest_categorical('alpha',[0.1,0.5,1.0]),
+                    'alpha': trial.suggest_categorical('alpha',[0.3,0.4,0.45,0.5,0.55,1.0]),
                     'random_state': random_state
                     }
                 base_model = RidgeClassifier(**params)
@@ -247,9 +256,6 @@ def train_model(
                     'random_state': random_state
                     }
                 base_model = Ridge(**params)  
-            case 'LR':
-                raise Exception('Linear Regression models do not support hyperparameter tuning. This message should not have occurred')
-                
             case _:
                 raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
     
@@ -260,32 +266,31 @@ def train_model(
     
     #just convert the model type to uppercase once for the sake of convenience
     model_type = model_type.upper()
+
     
-    if model_type != 'LR':
-    
-        # Determine number of trials based on previous n_iter logic
-        if model_type == 'CART':
-            n_trials = 10
-        elif model_type == 'RF':
-            n_trials = 50
-        elif model_type == 'XG':
-            n_trials = 20
-        elif model_type in ['NN', 'MLP']:
-            n_trials = 20
-        else:
-            n_trials = 20
-    
-        optuna.logging.set_verbosity(optuna.logging.WARNING if verbose < 2 else optuna.logging.INFO)
-        study = optuna.create_study(direction='maximize', sampler=optuna.samplers.TPESampler(seed=random_state))
-        study.optimize(objective, n_trials=n_trials)
-    
-        if verbose > 0:
-            logging.info(f"Best trial parameters: {study.best_params}")
-            logging.info(f"Best cross-validation accuracy: {study.best_value}")
-    
-        # Recreate the best model
-        best_params = study.best_params
-    
+    # Determine number of trials based on previous n_iter logic
+    if model_type == 'CART':
+        n_trials = 10
+    elif model_type == 'RF':
+        n_trials = 50
+    elif model_type == 'XG':
+        n_trials = 20
+    elif model_type in ['NN', 'MLP']:
+        n_trials = 20
+    else:
+        n_trials = 20
+
+    optuna.logging.set_verbosity(optuna.logging.WARNING if verbose < 2 else optuna.logging.INFO)
+    study = optuna.create_study(direction='maximize', sampler=optuna.samplers.TPESampler(seed=random_state))
+    study.optimize(objective, n_trials=n_trials)
+
+    if verbose > 0:
+        logging.info(f"Best trial parameters: {study.best_params}")
+        logging.info(f"Best cross-validation accuracy: {study.best_value}")
+
+    # Recreate the best model
+    best_params = study.best_params
+
     match model_type:
         case 'CART':
             final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
@@ -299,13 +304,13 @@ def train_model(
         case 'NN' | 'MLP':
             final_params = {**best_params, 'max_iter': 500, 'random_state': random_state}
             final_model = MLPClassifier(**final_params)
-        case 'LR': #tuning was skipped if it was a linear regression, so this just gives it empty parameters for consistency
-            final_params = {}
+        case 'LR': #logistic regression
+            final_params = {**best_params,'random_state':random_state}
             final_model = LinearRegression(**final_params)
-        case 'RR': #tuning also skipped here
+        case 'RR': #this really shouldn't happen since it would have crashed in tuning
             final_params = {'alpha':0.5,'random_state':random_state}
             final_model = Ridge(**final_params)
-        case 'RC':
+        case 'RC': #ridge classifier
             final_params = {**best_params,'random_state':random_state}
             final_model = RidgeClassifier(**final_params)    
             
