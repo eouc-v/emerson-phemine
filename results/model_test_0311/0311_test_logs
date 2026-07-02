@@ -1,0 +1,4 @@
+Best trial parameters: {'n_estimators': 10, 'max_depth': None, 'min_samples_split': 2, 'min_samples_leaf': 4, 'bootstrap': False}
+Best cross-validation accuracy: 0.9502283105022832
+Loaded backend agg version v2.2.
+locator: <matplotlib.ticker.AutoLocator object at 0x797b4b37d190>
