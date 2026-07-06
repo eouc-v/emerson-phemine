@@ -6,7 +6,7 @@ from scipy.stats import randint
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
-from sklearn.linear_model import LinearRegression, Ridge, RidgeClassifier, LogisticRegression
+from sklearn.linear_model import LinearRegression, Ridge, RidgeClassifier, LogisticRegression, SGDClassifier
 import optuna
 
 from sklearn.neural_network import MLPClassifier
@@ -256,6 +256,16 @@ def train_model(
                     'random_state': random_state
                     }
                 base_model = Ridge(**params)  
+            case 'SGDC':
+                params = {
+                    'loss': 'log_loss'
+                    'penalty': trial.suggest_categorical('penalty',['l1','l2']),
+                    'alpha': trial.suggest_categorical('alpha',[0.0,0.0001,0.001,0.01,0.1,1.0]),
+                    'learning_rate': trial.suggest_categorical('learning_rate',['constant','optimal','adaptive']),
+                    'early_stopping': trial.suggest_categorical('early_stopping',[True,False]),
+                    'random_state': random_state
+                    }    
+                base_model = SGDClassifier(**params)
             case _:
                 raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
     
@@ -310,6 +320,9 @@ def train_model(
         case 'RR': #this really shouldn't happen since it would have crashed in tuning
             final_params = {'alpha':0.5,'random_state':random_state}
             final_model = Ridge(**final_params)
+        case 'SGDC':
+            final_params = {'loss':'log_loss','random_state':random_state,**best_params}
+            final_model = SGDClassifier(**final_params)
         case 'RC': #ridge classifier
             final_params = {**best_params,'random_state':random_state}
             final_model = RidgeClassifier(**final_params)    
