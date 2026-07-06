@@ -258,9 +258,10 @@ def train_model(
                 base_model = Ridge(**params)  
             case 'SGDC':
                 params = {
-                    'loss': 'log_loss'
+                    'loss': 'log_loss',
+		    'eta0': 0.01,
                     'penalty': trial.suggest_categorical('penalty',['l1','l2']),
-                    'alpha': trial.suggest_categorical('alpha',[0.0,0.0001,0.001,0.01,0.1,1.0]),
+                    'alpha': trial.suggest_categorical('alpha',[0.0001,0.001,0.01,0.1,1.0]),
                     'learning_rate': trial.suggest_categorical('learning_rate',['constant','optimal','adaptive']),
                     'early_stopping': trial.suggest_categorical('early_stopping',[True,False]),
                     'random_state': random_state
@@ -321,7 +322,7 @@ def train_model(
             final_params = {'alpha':0.5,'random_state':random_state}
             final_model = Ridge(**final_params)
         case 'SGDC':
-            final_params = {'loss':'log_loss','random_state':random_state,**best_params}
+            final_params = {'loss':'log_loss','eta0':0.01,'random_state':random_state,**best_params}
             final_model = SGDClassifier(**final_params)
         case 'RC': #ridge classifier
             final_params = {**best_params,'random_state':random_state}
