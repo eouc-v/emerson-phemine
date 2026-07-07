@@ -254,7 +254,7 @@ def train_model(
             case 'LSVC': #a linear support vector classifier. mostly to see how it'll differ from a logistic regression
                 params = {
                     'random_state': random_state,
-                    'C' = trial.suggest_categorical('C',[0.001,0.01,0.1,1.0,10])
+                    'C': trial.suggest_categorical('C',[0.001,0.01,0.1,1.0,10])
                     }    
                 base_model = LinearSVC(**params)
             case 'SVC': #a support vector classifier using the default kernel (rbf). trying out a nonlinear version to see how it compares
@@ -318,10 +318,10 @@ def train_model(
             final_params = {**best_params,}
             final_model = LogisticRegression(**final_params)
         case 'LSVC':
-            final_params = {'loss':'log_loss','eta0':0.01, **best_params}
+            final_params = {**best_params}
             final_model = LinearSVC(**final_params)
         case 'SVC':
-            final_params = {**best_params,'kernel':rbf}
+            final_params = {**best_params,'kernel':'rbf'}
             final_model = SVC(**final_params)
         case 'RC': #ridge classifier
             final_params = {**best_params}
