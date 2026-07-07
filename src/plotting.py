@@ -6,7 +6,8 @@ from sklearn.metrics import (
     roc_curve,
     roc_auc_score,
     precision_recall_curve,
-    average_precision_score
+    average_precision_score,
+    RocCurveDisplay
 )
 from sklearn.inspection import permutation_importance
 import shap
@@ -72,25 +73,29 @@ def plot_ROC(
     Returns:
         float: AUC score
     '''
-    y_pred_prob = final_model.predict_proba(X_test)[:, 1]
-
-    # Calculate the ROC curve
-    fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
-
-    # Calculate the AUC (Area Under the Curve)
-    auc = roc_auc_score(y_test, y_pred_prob)
-
-    # Plot the ROC curve
-    plt.figure()
-    plt.plot(fpr, tpr, label=f'{model_type} (AUC = {auc:.2f})')
-    plt.plot([0, 1], [0, 1], 'k--')  # Dashed diagonal line (random classifier)
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title(f'ROC Curve for {trait} prediction model')
-    plt.legend(loc='lower right')
-    plt.show()
-    plt.savefig(output_path / f'{prefix}_{model_type}_ROC_curve.png', bbox_inches='tight')
-    return auc
+    if model_type in ['LSVC','SVC']:
+        disp = RocCurveDisplay.from_estimator(final_model, X_test, y_test)
+        plt.show()
+    else:
+        y_pred_prob = final_model.predict_proba(X_test)[:, 1]
+    
+        # Calculate the ROC curve
+        fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
+    
+        # Calculate the AUC (Area Under the Curve)
+        auc = roc_auc_score(y_test, y_pred_prob)
+    
+        # Plot the ROC curve
+        plt.figure()
+        plt.plot(fpr, tpr, label=f'{model_type} (AUC = {auc:.2f})')
+        plt.plot([0, 1], [0, 1], 'k--')  # Dashed diagonal line (random classifier)
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.title(f'ROC Curve for {trait} prediction model')
+        plt.legend(loc='lower right')
+        plt.show()
+        plt.savefig(output_path / f'{prefix}_{model_type}_ROC_curve.png', bbox_inches='tight')
+        return auc
 
 def plot_precision_recall(
     final_model: Any,
