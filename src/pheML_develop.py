@@ -6,7 +6,8 @@ from scipy.stats import randint
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
-from sklearn.linear_model import LinearRegression, Ridge, RidgeClassifier, LogisticRegression, SGDClassifier
+from sklearn.linear_model import RidgeClassifier, LogisticRegression, SGDClassifier
+from sklearn.svm import LinearSVC, SVC
 import optuna
 
 from sklearn.neural_network import MLPClassifier
@@ -250,23 +251,19 @@ def train_model(
                     'random_state': random_state
                     }
                 base_model = RidgeClassifier(**params)
-            case 'RR': #this really doesn't work for some reason involving classification metrics
+            case 'LSVC': #a linear support vector classifier. mostly to see how it'll differ from a logistic regression
                 params = {
-                    'alpha': trial.suggest_categorical('alpha',[0.3,0.4,0.45,0.5,0.55,1.0]),
-                    'random_state': random_state
-                    }
-                base_model = Ridge(**params)  
-            case 'SGDC':
-                params = {
-                    'loss': 'log_loss',
-		    'eta0': 0.01,
-                    'penalty': trial.suggest_categorical('penalty',['l1','l2']),
-                    'alpha': trial.suggest_categorical('alpha',[0.0001,0.001,0.01,0.1,1.0]),
-                    'learning_rate': trial.suggest_categorical('learning_rate',['constant','optimal','adaptive']),
-                    'early_stopping': trial.suggest_categorical('early_stopping',[True,False]),
-                    'random_state': random_state
+                    'random_state': random_state,
+                    'C' = trial.suggest_categorical('C',[0.001,0.01,0.1,1.0,10])
                     }    
-                base_model = SGDClassifier(**params)
+                base_model = LinearSVC(**params)
+            case 'SVC': #a support vector classifier using the default kernel (rbf). trying out a nonlinear version to see how it compares
+                params = {
+                    'random_state': random_state,
+                    'kernel': 'rbf',
+                    'C': trial.suggest_categorical('C',[0.001,0.01,0.1,1.0,10])
+                    }
+                base_model = SVC(**params)
             case _:
                 raise ValueError(f"Unknown model_type: {model_type}. Choose from 'CART', 'RF', 'XG', or 'NN'/'MLP'.")
     
@@ -288,6 +285,8 @@ def train_model(
         n_trials = 20
     elif model_type in ['NN', 'MLP']:
         n_trials = 20
+    elif model_type in ['SVC','LSVC','RC']:
+        n_trials = 10 #these models have fewer hyperparameters to tune and so need fewer trials
     else:
         n_trials = 20
 
@@ -301,33 +300,33 @@ def train_model(
 
     # Recreate the best model
     best_params = study.best_params
-
+    best_params['random_state'] = random_state
     match model_type:
         case 'CART':
-            final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
+            final_params = {**best_params, 'class_weight': 'balanced'}
             final_model = DecisionTreeClassifier(**final_params)
         case 'RF':
-            final_params = {**best_params, 'random_state': random_state, 'class_weight': 'balanced'}
+            final_params = {**best_params, 'class_weight': 'balanced'}
             final_model = RandomForestClassifier(**final_params)
         case 'XG':
-            final_params = {**best_params, 'eval_metric': 'logloss', 'random_state': random_state, 'use_label_encoder': False}
+            final_params = {**best_params, 'eval_metric': 'logloss', 'use_label_encoder': False}
             final_model = XGBClassifier(**final_params)
         case 'NN' | 'MLP':
-            final_params = {**best_params, 'max_iter': 500, 'random_state': random_state}
+            final_params = {**best_params, 'max_iter': 500}
             final_model = MLPClassifier(**final_params)
         case 'LR': #logistic regression
-            final_params = {**best_params,'random_state':random_state}
+            final_params = {**best_params,}
             final_model = LogisticRegression(**final_params)
-        case 'RR': #this really shouldn't happen since it would have crashed in tuning
-            final_params = {'alpha':0.5,'random_state':random_state}
-            final_model = Ridge(**final_params)
-        case 'SGDC':
-            final_params = {'loss':'log_loss','eta0':0.01,'random_state':random_state,**best_params}
-            final_model = SGDClassifier(**final_params)
+        case 'LSVC':
+            final_params = {'loss':'log_loss','eta0':0.01, **best_params}
+            final_model = LinearSVC(**final_params)
+        case 'SVC':
+            final_params = {**best_params,'kernel':rbf}
+            final_model = SVC(**final_params)
         case 'RC': #ridge classifier
-            final_params = {**best_params,'random_state':random_state}
+            final_params = {**best_params}
             final_model = RidgeClassifier(**final_params)    
-            
+    print(final_params)
     final_model.fit(X_train, y_train)
     return final_model
 
