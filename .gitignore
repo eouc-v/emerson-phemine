@@ -70,3 +70,4 @@ notebooks/
 
 # Other
 /writing/
+*.slurm
