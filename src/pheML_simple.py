@@ -51,10 +51,10 @@ def main():
     setup_log(fn_log,mode='a')
     #train the model
     model = train_model(X_train,y_train,model_type,verbose=3,reg=reg)
+    auc = plot_ROC(model,X_test,y_test,output_path,'Stutter',model_type,prefix)
     #plot a confusion matrix for the model using a function from plotting.py (which also saves it)
     try:
         precision = plot_CM(model,X_test,y_test,output_path,model_type,'Stutter',prefix)
-        auc = plot_ROC(model,X_test,y_test,output_path,'Stutter',model_type,prefix)
     except:
         print("Model was unsupported by confusion matrix generator; probably not a classifier")
     #save the model with joblib
