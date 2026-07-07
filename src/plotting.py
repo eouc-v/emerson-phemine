@@ -94,8 +94,8 @@ def plot_ROC(
         plt.title(f'ROC Curve for {trait} prediction model')
         plt.legend(loc='lower right')
         plt.show()
-        plt.savefig(output_path / f'{prefix}_{model_type}_ROC_curve.png', bbox_inches='tight')
-        return auc
+    plt.savefig(output_path / f'{prefix}_{model_type}_ROC_curve.png', bbox_inches='tight')
+    return auc
 
 def plot_precision_recall(
     final_model: Any,
