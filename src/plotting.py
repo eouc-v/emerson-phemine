@@ -124,28 +124,29 @@ def plot_precision_recall(
         float: Average precision score
     """
     if model_type.upper() in ['SVC','LSVC']:
-	PrecisionRecallDisplay.from_estimator(final_model,X_test,y_test)
-	avg_precision = disp.average_precision
-	plt.show()
-    y_pred_prob = final_model.predict_proba(X_test)[:, 1]
-
-    precision, recall, _ = precision_recall_curve(y_test, y_pred_prob)
-    avg_precision = average_precision_score(y_test, y_pred_prob)
-
-    plt.figure()
-    plt.step(recall, precision, where='post', label=f'{model_type} (AP = {avg_precision:.2f})')
-    plt.fill_between(recall, precision, alpha=0.1, step='post')
-
-    positive_ratio = y_test.mean()
-    plt.axhline(positive_ratio, color='k', linestyle='--', label=f'Baseline (Prevalence = {positive_ratio:.2f})')
-
-    plt.xlabel('Recall')
-    plt.ylabel('Precision')
-    plt.title(f'Precision-Recall Curve for {trait} prediction model')
-    plt.legend(loc='lower left')
+        disp =PrecisionRecallDisplay.from_estimator(final_model,X_test,y_test)
+        avg_precision = disp.average_precision
+        plt.show()
+    else:
+        y_pred_prob = final_model.predict_proba(X_test)[:, 1]
+    
+        precision, recall, _ = precision_recall_curve(y_test, y_pred_prob)
+        avg_precision = average_precision_score(y_test, y_pred_prob)
+    
+        plt.figure()
+        plt.step(recall, precision, where='post', label=f'{model_type} (AP = {avg_precision:.2f})')
+        plt.fill_between(recall, precision, alpha=0.1, step='post')
+    
+        positive_ratio = y_test.mean()
+        plt.axhline(positive_ratio, color='k', linestyle='--', label=f'Baseline (Prevalence = {positive_ratio:.2f})')
+    
+        plt.xlabel('Recall')
+        plt.ylabel('Precision')
+        plt.title(f'Precision-Recall Curve for {trait} prediction model')
+        plt.legend(loc='lower left')
+        
     plt.savefig(output_path / f'{prefix}_{model_type}_PR_curve.png', bbox_inches='tight')
     plt.close()
-
     return avg_precision
 
 def plot_feature_importances(
