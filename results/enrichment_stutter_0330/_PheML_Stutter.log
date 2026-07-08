@@ -1,0 +1,50 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/enrichment_stutter_0330 --trait Stutter --output_prefix stutter_0330 --model_type SVC --matched_controls_for_ML 1 --n_controls_per_case 5 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_stutter_0330
+# - trait: Stutter
+# - output_prefix: stutter_0330
+# - model_type: SVC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+# - kernel: rbf
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 6686 relevant samples (cases + controls)...
+Number of training samples: 5295
+Number of testing samples: 1329
+Number of features: 21
+Training the model...
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/enrichment_stutter_0330 --trait Stutter --output_prefix stutter_0330 --model_type SVC --matched_controls_for_ML 1 --n_controls_per_case 5 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_stutter_0330
+# - trait: Stutter
+# - output_prefix: stutter_0330
+# - model_type: SVC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+# - kernel: rbf
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 6686 relevant samples (cases + controls)...
+Number of training samples: 5295
+Number of testing samples: 1329
+Number of features: 21
+Training the model...
+Best trial parameters: {'C': 1.0}
+Best cross-validation accuracy: 0.9002832861189802
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for SVC model...
+Saved permutation importance results to results/enrichment_stutter_0330/stutter_0330_SVC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/enrichment_stutter_0330/stutter_0330_SVC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x7260cc79aad0>

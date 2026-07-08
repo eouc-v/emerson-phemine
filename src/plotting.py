@@ -7,7 +7,8 @@ from sklearn.metrics import (
     roc_auc_score,
     precision_recall_curve,
     average_precision_score,
-    RocCurveDisplay
+    RocCurveDisplay,
+    PrecisionRecallDisplay
 )
 from sklearn.inspection import permutation_importance
 import shap
@@ -122,6 +123,10 @@ def plot_precision_recall(
     Returns:
         float: Average precision score
     """
+    if model_type.upper() in ['SVC','LSVC']:
+	PrecisionRecallDisplay.from_estimator(final_model,X_test,y_test)
+	avg_precision = disp.average_precision
+	plt.show()
     y_pred_prob = final_model.predict_proba(X_test)[:, 1]
 
     precision, recall, _ = precision_recall_curve(y_test, y_pred_prob)

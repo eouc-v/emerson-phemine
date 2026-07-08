@@ -186,7 +186,7 @@ def train_model(
     Returns:
         Any: The best trained model
     '''
-    print(kernelßß)
+    print(kernel)
     def objective(trial):
         match model_type:
             case 'CART':

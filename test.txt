@@ -1,0 +1,10 @@
+Assuming unrestricted shared filesystem usage.
+host: vgipiper16
+Building DAG of jobs...
+MissingInputException in rule find_matched_controls in file "/DC1/vumcshare/data100t1/home/emerson/PheMINE/Snakefile", line 44:
+Missing input files for rule find_matched_controls:
+    output: results/enrichment_stutter_0330/case_control_pairs_stutter_0330_train.txt
+    affected files:
+        /data100t1/share/synthetic-deriv/demographic-releases/2025-mar-19/sd_demographics.csv.gz
+        /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/depth_of_record_in_sd.csv
+        /data100t1/share/stuttering/SexSpecificStutteringML/cases_2022.txt
