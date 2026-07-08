@@ -32,3 +32,37 @@ Precision is: 0.72
 AUC is: 0.80
 Saving model...
 Done. Model building completed.
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/enrichment_stutter_0340 --trait Stutter --output_prefix stutter_0340 --model_type SVC --matched_controls_for_ML 1 --n_controls_per_case 5 --kernel sigmoid
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_stutter_0340
+# - trait: Stutter
+# - output_prefix: stutter_0340
+# - model_type: SVC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+# - kernel: sigmoid
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 6686 relevant samples (cases + controls)...
+Number of training samples: 5295
+Number of testing samples: 1329
+Number of features: 21
+Training the model...
+Best trial parameters: {'C': 0.1}
+Best cross-validation accuracy: 0.8525023607176582
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for SVC model...
+Saved permutation importance results to results/enrichment_stutter_0340/stutter_0340_SVC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/enrichment_stutter_0340/stutter_0340_SVC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x775ebd75eed0>
+Precision is: 0.60
+AUC is: 0.66
+Saving model...
+Done. Model building completed.
