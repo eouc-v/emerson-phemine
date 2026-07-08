@@ -75,6 +75,7 @@ def plot_ROC(
     '''
     if model_type in ['LSVC','SVC']:
         disp = RocCurveDisplay.from_estimator(final_model, X_test, y_test)
+        auc = disp.roc_auc
         plt.show()
     else:
         y_pred_prob = final_model.predict_proba(X_test)[:, 1]
