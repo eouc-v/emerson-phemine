@@ -1,0 +1,35 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/enrichment_stutter_0350 --trait Stutter --output_prefix stutter_0350 --model_type SVC --matched_controls_for_ML 1 --n_controls_per_case 5 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_stutter_0350
+# - trait: Stutter
+# - output_prefix: stutter_0350
+# - model_type: SVC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+# - kernel: rbf
+This model is using the rbf kernel
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 6686 relevant samples (cases + controls)...
+Number of training samples: 5301
+Number of testing samples: 1327
+Number of features: 21
+Training the model...
+Best trial parameters: {'C': 1.0}
+Best cross-validation accuracy: 0.9002069958920919
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for SVC model...
+Saved permutation importance results to results/enrichment_stutter_0350/stutter_0350_SVC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/enrichment_stutter_0350/stutter_0350_SVC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x75797cbfa9d0>
+Precision is: 0.77
+AUC is: 0.81
+Saving model...
+Done. Model building completed.

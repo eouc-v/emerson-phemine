@@ -1,0 +1,24 @@
+
+# Call used:
+python src/find_matched_controls.py --icd_count -1 --result_path results/enrichment_stutter_0350 --result_filename case_control_pairs_stutter_0350 --control_exclusion_list None
+
+# Arguments used:
+# - icd_count: -1
+# - result_path: results/enrichment_stutter_0350
+# - result_filename: case_control_pairs_stutter_0350
+# - case_path: /data100t1/share/stuttering/SexSpecificStutteringML/cases_2022.txt
+# - demographics_file: /data100t1/share/synthetic-deriv/demographic-releases/2025-mar-19/sd_demographics.csv.gz
+# - depth_of_record_path: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/depth_of_record_in_sd.csv
+# - control_exclusion_list: None
+# - train_split_ratio: 0.8
+Importing data...
+
+Finding matches...
+
+Removed 9 cases with no matched controls
+Saved 897 training pairs to results/enrichment_stutter_0350/case_control_pairs_stutter_0350_train.txt
+Saved 225 test pairs to results/enrichment_stutter_0350/case_control_pairs_stutter_0350_test.txt
+
+# Done. Finished in 8.85 minutes
+
+

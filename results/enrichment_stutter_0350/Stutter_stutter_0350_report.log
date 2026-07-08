@@ -1,0 +1,23 @@
+
+# Call used:
+python src/phecode_enrichment_generate_reports.py --data_folder data --output_folder results/enrichment_stutter_0350 --trait Stutter --input_prefix stutter_0350
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_stutter_0350
+# - trait: Stutter
+# - input_prefix: stutter_0350
+# - phecode_map_file: /data100t1/share/synthetic-deriv/phecodes/ICD_Phecode_mapping.csv
+
+Reading enrichment analysis results...
+The number of enriched phecode is: 21 (out of 1877)
+Reading phecode map...
+Reading case control file: results/enrichment_stutter_0350/case_control_pairs_stutter_0350_train.txt
+Total number of cases: 897
+Minimum frequency threshold: 0 (Count > 0)
+Filtered 0 phecodes with low frequency.
+Generating statistics for enrichment analysis...
+
+Done. Report generated.
+
+
