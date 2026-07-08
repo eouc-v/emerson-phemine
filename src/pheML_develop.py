@@ -82,6 +82,7 @@ def process_args() -> argparse.Namespace:
     parser.add_argument('--matched_controls_for_ML', type=int, default=1)
     parser.add_argument('--n_controls_per_case', type=int, default=5, 
                         help='Number of controls to use per case')
+    parser.add_argument('--kernel',default='rbf')
 
     
     args = parser.parse_args()
@@ -170,7 +171,8 @@ def train_model(
     random_state: int = 42,
     verbose: int = 2,
     n_jobs: int = -1,
-    reg: list[float] = [0.0]
+    reg: list[float] = [0.0],
+    kernel: str = 'rbf'
 ) -> Any:
     '''
     Train a machine learning model with hyperparameter tuning using Optuna.
@@ -184,7 +186,7 @@ def train_model(
     Returns:
         Any: The best trained model
     '''
-    
+    print(kernelßß)
     def objective(trial):
         match model_type:
             case 'CART':
@@ -260,7 +262,7 @@ def train_model(
             case 'SVC': #a support vector classifier using the default kernel (rbf). trying out a nonlinear version to see how it compares
                 params = {
                     'random_state': random_state,
-                    'kernel': 'rbf',
+                    'kernel': kernel,
                     'C': trial.suggest_categorical('C',[0.001,0.01,0.1,1.0,10])
                     }
                 base_model = SVC(**params)
@@ -321,7 +323,7 @@ def train_model(
             final_params = {**best_params}
             final_model = LinearSVC(**final_params)
         case 'SVC':
-            final_params = {**best_params,'kernel':'rbf'}
+            final_params = {**best_params,'kernel':kernel}
             final_model = SVC(**final_params)
         case 'RC': #ridge classifier
             final_params = {**best_params}
@@ -375,6 +377,7 @@ def main() -> None:
     prefix = args.output_prefix
     model_type = args.model_type
     use_matched_controls = args.matched_controls_for_ML
+    svm_kernel = args.kernel
 
     # Import case control and corresponding phecodes
     logging.info('Preparing data for model development...')
@@ -451,7 +454,7 @@ def main() -> None:
         export_data[table].to_csv(output_path / f"{table}.csv", index=False)
     
     logging.info('Training the model...')
-    final_model = train_model(X_train, y_train, model_type=model_type)
+    final_model = train_model(X_train, y_train, model_type=model_type,kernel=svm_kernel)
 
 
     logging.info('Reading phecode map...')

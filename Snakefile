@@ -24,6 +24,7 @@ N_PERMUTE = config.get("n_permute", 10000)
 MODEL_TYPE = config.get("model_type", 'RF')
 USE_MATCHED_CONTROLS = config.get("use_matched_controls", 0)
 N_CONTROLS_PER_CASE = config.get("n_controls_per_case", 5)
+KERNEL = config.get('kernel','rbf')
 
 FEATURE_SELECTION_METHOD = config.get("feature_selection_method", "enrichment")
 
@@ -139,6 +140,7 @@ rule pheML_develop:
         model_type=MODEL_TYPE,
         use_matched_controls=USE_MATCHED_CONTROLS,
         n_controls_per_case=N_CONTROLS_PER_CASE,
+        kernel=KERNEL
     conda:
         "environment.yaml"
     shell:
@@ -150,5 +152,6 @@ rule pheML_develop:
             --output_prefix {params.output_prefix} \
             --model_type {params.model_type} \
             --matched_controls_for_ML {params.use_matched_controls} \
-            --n_controls_per_case {params.n_controls_per_case}
+            --n_controls_per_case {params.n_controls_per_case} \
+            --kernel {params.kernel}
         """
