@@ -186,7 +186,7 @@ def train_model(
     Returns:
         Any: The best trained model
     '''
-    print(kernel)
+
     def objective(trial):
         match model_type:
             case 'CART':
@@ -378,7 +378,10 @@ def main() -> None:
     model_type = args.model_type
     use_matched_controls = args.matched_controls_for_ML
     svm_kernel = args.kernel
-
+    
+    if model_type.upper() == 'SVC':
+        logging.info(f'This model is using the {svm_kernel} kernel')
+    
     # Import case control and corresponding phecodes
     logging.info('Preparing data for model development...')
 
