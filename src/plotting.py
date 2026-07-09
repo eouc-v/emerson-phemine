@@ -74,7 +74,7 @@ def plot_ROC(
     Returns:
         float: AUC score
     '''
-    if model_type in ['LSVC','SVC']:
+    if model_type in ['LSVC','SVC','RC']:
         disp = RocCurveDisplay.from_estimator(final_model, X_test, y_test)
         auc = disp.roc_auc
         plt.show()
@@ -123,7 +123,7 @@ def plot_precision_recall(
     Returns:
         float: Average precision score
     """
-    if model_type.upper() in ['SVC','LSVC']:
+    if model_type.upper() in ['SVC','LSVC','RC']:
         disp =PrecisionRecallDisplay.from_estimator(final_model,X_test,y_test)
         avg_precision = disp.average_precision
         plt.show()

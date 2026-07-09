@@ -1,0 +1,94 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/enrichment_stutter_0360 --trait Stutter --output_prefix stutter_0360 --model_type RC --matched_controls_for_ML 1 --n_controls_per_case 5 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_stutter_0360
+# - trait: Stutter
+# - output_prefix: stutter_0360
+# - model_type: RC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+# - kernel: rbf
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 6686 relevant samples (cases + controls)...
+Number of training samples: 5303
+Number of testing samples: 1327
+Number of features: 20
+Training the model...
+Best trial parameters: {'alpha': 0.1}
+Best cross-validation accuracy: 0.8996813259118313
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for RC model...
+Saved permutation importance results to results/enrichment_stutter_0360/stutter_0360_RC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/enrichment_stutter_0360/stutter_0360_RC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x755386355d10>
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/enrichment_stutter_0360 --trait Stutter --output_prefix stutter_0360 --model_type RC --matched_controls_for_ML 1 --n_controls_per_case 5 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_stutter_0360
+# - trait: Stutter
+# - output_prefix: stutter_0360
+# - model_type: RC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+# - kernel: rbf
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 6686 relevant samples (cases + controls)...
+Number of training samples: 5303
+Number of testing samples: 1327
+Number of features: 20
+Training the model...
+Best trial parameters: {'alpha': 0.1}
+Best cross-validation accuracy: 0.8996813259118313
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for RC model...
+Saved permutation importance results to results/enrichment_stutter_0360/stutter_0360_RC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/enrichment_stutter_0360/stutter_0360_RC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x7bbfded61910>
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/enrichment_stutter_0360 --trait Stutter --output_prefix stutter_0360 --model_type RC --matched_controls_for_ML 1 --n_controls_per_case 5 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/enrichment_stutter_0360
+# - trait: Stutter
+# - output_prefix: stutter_0360
+# - model_type: RC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+# - kernel: rbf
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 6686 relevant samples (cases + controls)...
+Number of training samples: 5303
+Number of testing samples: 1327
+Number of features: 20
+Training the model...
+Best trial parameters: {'alpha': 0.1}
+Best cross-validation accuracy: 0.8996813259118313
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for RC model...
+Saved permutation importance results to results/enrichment_stutter_0360/stutter_0360_RC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/enrichment_stutter_0360/stutter_0360_RC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x73cb10194e90>
+Precision is: 0.67
+AUC is: 0.90
+Saving model...
+Done. Model building completed.

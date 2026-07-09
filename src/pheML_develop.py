@@ -249,7 +249,7 @@ def train_model(
                 base_model = LogisticRegression(**params)
             case 'RC':
                 params = {
-                    'alpha': trial.suggest_categorical('alpha',[0.3,0.4,0.45,0.5,0.55,1.0]),
+                    'alpha': trial.suggest_categorical('alpha',[0.01,0.1,0.3,0.4,0.5,1.0]),
                     'random_state': random_state
                     }
                 base_model = RidgeClassifier(**params)

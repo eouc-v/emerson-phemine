@@ -3,11 +3,11 @@
 # General pipeline configuration
 trait: Stutter # Trait of interest
 icd_count: -1 # Number of ICD codes needed to classify as a case, if -1, all cases will be included
-results_dir: results/enrichment_stutter_0350 # Results directory
+results_dir: results/enrichment_stutter_0360 # Results directory
 data_dir: data # Data directory
-output_prefix: stutter_0350 # Output prefix
+output_prefix: stutter_0360 # Output prefix
 n_permute: 10000 # Number of permutations for phecode enrichment analysis, increase for more accurate p-value
-model_type: SVC # Model type, choose from CART, RF, XG, NN/MLP, LR, LSVC, SVC
+model_type: RC # Model type, choose from CART, RF, XG, NN/MLP, LR, LSVC, SVC, or RC
 use_matched_controls: 1 # Whether to use matched controls for ML, 1 for yes, 0 for no
 n_controls_per_case: 5 # Number of controls to use per case
 train_split_ratio: 0.8 # Proportion of matched pairs allocated to the training split
