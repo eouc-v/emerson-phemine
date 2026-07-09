@@ -20,9 +20,11 @@ excluded_codes: # List of ICD codes and Phecodes to exclude from the ML pipeline
     # - 'F50.00'
     # - 'F50.01'
     # - 'F50.02'
+	'307.0' #stuttering
   Phecode:
     # - '305.21'
     # - '305.2'
+	'313.2' #tics and stuttering
 
 # Data file paths (project agnostic)
 phecode_binary_file: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/sd_samples_phecode.binary.txt.gz
