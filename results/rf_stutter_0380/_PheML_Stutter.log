@@ -1,0 +1,34 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/rf_stutter_0380 --trait Stutter --output_prefix stutter_0380 --model_type RF --matched_controls_for_ML 1 --n_controls_per_case 5 --kernel poly
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/rf_stutter_0380
+# - trait: Stutter
+# - output_prefix: stutter_0380
+# - model_type: RF
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 5
+# - kernel: poly
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 6686 relevant samples (cases + controls)...
+Number of training samples: 5295
+Number of testing samples: 1329
+Number of features: 21
+Training the model...
+Best trial parameters: {'n_estimators': 50, 'max_depth': 10, 'min_samples_split': 5, 'min_samples_leaf': 1, 'bootstrap': True}
+Best cross-validation accuracy: 0.8853635505193578
+Reading phecode map...
+Plotting model results...
+Loaded backend agg version v2.2.
+Saved top 10 feature importance plot to results/rf_stutter_0380/stutter_0380_rf_feature_importance_top10.png
+Computing permutation importance for RF model...
+Saved permutation importance results to results/rf_stutter_0380/stutter_0380_RF_permutation_importance.csv
+Saved permutation importance plot to results/rf_stutter_0380/stutter_0380_RF_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x78fa1846d990>
+Precision is: 0.62
+AUC is: 0.90
+Saving model...
+Done. Model building completed.
