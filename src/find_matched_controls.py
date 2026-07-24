@@ -60,6 +60,7 @@ def process_args() -> argparse.Namespace:
     parser.add_argument('--demographics_file', help='Path to demographics file', type=str, default=config['demographics_file'])
     parser.add_argument('--depth_of_record_path', help='Path to depth of record file', type=str, default=config['depth_of_record_path'])
     parser.add_argument('--control_exclusion_list', help='Path to control exclusion list file', type=str, default=None)
+    parser.add_argument('--subset_inclusion_list', help='Path to subset inclusion list file', type=str, default=None)
     parser.add_argument('--train_split_ratio', help='Proportion of matched pairs for training split (0-1)', type=float,
                         default=config.get('train_split_ratio', 0.8))
 
@@ -87,7 +88,8 @@ def process_args() -> argparse.Namespace:
 
 
 def import_data(icd_count: int = -1, case_path: Path = None, demographics_file: Path = None, 
-                depth_of_record_path: Path = None, control_exclusion_list: list[str] = None) -> tuple[pd.DataFrame, pd.DataFrame]:
+                depth_of_record_path: Path = None, control_exclusion_list: list[str] = None,
+                subset_inclusion_list: list[str] = None) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     Import and preprocess case and control data for matching.
     
@@ -97,6 +99,7 @@ def import_data(icd_count: int = -1, case_path: Path = None, demographics_file: 
         demographics_file: Path to demographics file
         depth_of_record_path: Path to depth of record data
         control_exclusion_list: List of control GRIDs to exclude from matching
+        subset_inclusion_list: Optional; limit the set of cases and controls to specific GRIDs. Applies to all GRIDs, not just controls.
     Returns:
         Tuple containing:
         - DataFrame with case information (demographics + depth of record)
@@ -126,8 +129,13 @@ def import_data(icd_count: int = -1, case_path: Path = None, demographics_file: 
     # Split into case and control groups
     case_with_info_df = demo_info_df[demo_info_df.grid.isin(case_df.grid)]
     control_with_info_df = demo_info_df[~demo_info_df.grid.isin(case_df.grid)]
+    #removes controls that are on the exclusion list
     if control_exclusion_list is not None:
         control_with_info_df = control_with_info_df[~control_with_info_df.grid.isin(control_exclusion_list)]
+    #filters out cases and controls that aren't on the subset list
+    if subset_inclusion_list is not None:
+        case_with_info_df = case_with_info_df[case_with_info_df.isin(subset_inclusion_list)]
+        control_with_info_df = control_with_info_df[control_with_info_df.isin(subset_inclusion_list)]
     return case_with_info_df, control_with_info_df
 
 
@@ -191,7 +199,12 @@ def main():
         control_exclusion_list = pd.read_csv(args.control_exclusion_list, header=None, names=['grid']).grid.tolist()
     else:
         control_exclusion_list = None
-    cases_df, controls_df = import_data(args.icd_count, args.case_path, args.demographics_file, args.depth_of_record_path, control_exclusion_list)
+    #get list of all grids that will be included (ones not on this list will be excluded)
+    if args.subset_inclusion_list is not None and args.subset_inclusion_list != 'None':
+        subset_inclusion_list = pd.read_csv(args.subset_inclusion_list, header=None, names=['grid']).grid.tolist()
+    else:
+        subset_inclusion_list = None
+    cases_df, controls_df = import_data(args.icd_count, args.case_path, args.demographics_file, args.depth_of_record_path, control_exclusion_list,subset_inclusion_list)
 
     logging.info('Finding matches...\n')
     found_controls = set()  # Track used controls to ensure no reuse
