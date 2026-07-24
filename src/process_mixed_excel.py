@@ -12,7 +12,7 @@ It processes it into two files:
 """
 import pandas as pd
 import argparse
-from pathlib import path
+from pathlib import Path
 
 def process_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -34,19 +34,21 @@ def main():
     subset_path = output_path / args.all_output
     #load diagnosis/grid table and rename columns for consistency/readability
     diagnosis_df = pd.read_excel(args.diagnosis_path)
-    diagnosis_df.rename( columns={'Patient ID':'grid','Diagnosis':'diagnosis'} )
+    diagnosis_df = diagnosis_df.rename( columns={'Patient ID':'grid','Diagnosis':'diagnosis'} )
+    print(diagnosis_df)
     #extract all the patients where the diagnosis is 'Yes', or any case variation of it
-    cases_df = diagnosis_df[diagnosis_df['diagnosis'].lower() == 'yes']
+    cases_df = diagnosis_df[ ( diagnosis_df['diagnosis'] == 'Yes' ) ]
     print(cases_df)
     #remove all columns other than the one containing patient GRIDs
     cases_df = cases_df['grid']
     print(cases_df)
     #get all grids where the diagnosis is either a Yes or No, ignoring any non-binary (:D) results
-    subset_df = diagnosis_df[diagnosis_df['diagnosis'].lower() in ['yes','no']]
+    subset_df = diagnosis_df[ diagnosis_df['diagnosis'].isin(['Yes','No']) ]
     print(subset_df)
     subset_df = subset_df['grid']
     print(subset_df)
     #EXPORT STATEMENT GOES HERE
     
-    
+if __name__ == '__main__':
+	main()    
     
