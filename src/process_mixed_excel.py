@@ -44,7 +44,7 @@ def main():
     subset_df = subset_df['grid']
     #export results to csv
     cases_df.to_csv(case_path,index=False)
-    controls_df.to_csv(subset_path,index=False)
+    subset_df.to_csv(subset_path,index=False)
     
 if __name__ == '__main__':
 	main()    
