@@ -37,12 +37,16 @@ def main():
     diagnosis_df = diagnosis_df.rename( columns={'Patient ID':'grid','Diagnosis':'diagnosis'} )
     print(diagnosis_df)
     #extract all the patients where the diagnosis is 'Yes', or any case variation of it
+<<<<<<< HEAD
     cases_df = diagnosis_df[ ( diagnosis_df['diagnosis'] == 'Yes' ) ]
     print(cases_df)
+=======
+    cases_df = diagnosis_df[diagnosis_df['diagnosis'].lower() == 'yes']
+>>>>>>> 3857ba4 (added export statements)
     #remove all columns other than the one containing patient GRIDs
     cases_df = cases_df['grid']
-    print(cases_df)
     #get all grids where the diagnosis is either a Yes or No, ignoring any non-binary (:D) results
+<<<<<<< HEAD
     subset_df = diagnosis_df[ diagnosis_df['diagnosis'].isin(['Yes','No']) ]
     print(subset_df)
     subset_df = subset_df['grid']
@@ -52,3 +56,11 @@ def main():
 if __name__ == '__main__':
 	main()    
     
+=======
+    subset_df = diagnosis_df[diagnosis_df['diagnosis'].lower() in ['yes','no']]
+    subset_df = subset_df['grid']
+    #export results to csv
+    cases_df.to_csv(case_path,index=False)
+    controls_df.to_csv(subset_path,index=False)
+    
+>>>>>>> 3857ba4 (added export statements)
