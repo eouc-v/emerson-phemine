@@ -53,11 +53,9 @@ def main():
     exclusion_df = diagnosis_df[ ~diagnosis_df['diagnosis'].isin(['Yes','No']) ]
     exclusion_df = exclusion_df['grid']
     exclusion_df = pd.concat([exclusion_df,primary_exclusion_df,fuzzy_df])
-    print(cases_df)
-    print(exclusion_df)
     #export results to csv
-    #cases_df.to_csv(case_path,index=False)
-    #exclusion_df.to_csv(exclusion_path,index=False)
+    cases_df.to_csv(case_path,index=False)
+    exclusion_df.to_csv(exclusion_path,index=False)
     
 if __name__ == '__main__':
 	main()    
