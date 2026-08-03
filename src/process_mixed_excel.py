@@ -48,7 +48,7 @@ def main():
     fuzzy_df = pd.read_csv(args.fuzzy_case_path)
     primary_exclusion_df = pd.read_csv(args.control_exclusion_path,header=None)
     #add label to primary exclusion since it doesn't come with one
-    primary_exclusion_df.rename({0:'grid'},axis=1)
+    primary_exclusion_df =  primary_exclusion_df.rename(columns={0:'grid'},errors='raise')
     #get all grids where the diagnosis is not Yes or No, making an exclusion df of any non-binary (:D) results
     exclusion_df = diagnosis_df[ ~diagnosis_df['diagnosis'].isin(['Yes','No']) ]
     #cut all columns other than grid from the exclusion df so it can then be combined with the prior exclusion list and the unused controls (fuzzy df)
