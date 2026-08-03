@@ -1,0 +1,34 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/lr_celiac_1000 --trait Celiac --output_prefix celiac_1000 --model_type LR --matched_controls_for_ML 1 --n_controls_per_case 4 --kernel poly
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/lr_celiac_1000
+# - trait: Celiac
+# - output_prefix: celiac_1000
+# - model_type: LR
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 4
+# - kernel: poly
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 536 relevant samples (cases + controls)...
+Number of training samples: 426
+Number of testing samples: 109
+Number of features: 139
+Training the model...
+Best trial parameters: {'l1_ratio': 0.0, 'C': 0.5, 'solver': 'lbfgs'}
+Best cross-validation accuracy: 0.9859097127222982
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for LR model...
+Saved permutation importance results to results/lr_celiac_1000/celiac_1000_LR_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/lr_celiac_1000/celiac_1000_LR_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x7959aeefd3d0>
+Precision is: 1.00
+AUC is: 1.00
+Saving model...
+Done. Model building completed.
