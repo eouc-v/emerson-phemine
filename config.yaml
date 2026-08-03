@@ -27,8 +27,8 @@ excluded_codes: # List of ICD codes and Phecodes to exclude from the ML pipeline
     #- '313.2' #tics and stuttering
 
 # Data file paths (project agnostic)
-#phecode_binary_file: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/sd_samples_phecode.binary.txt.gz
-#phecode_binary_feather_file: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/sd_samples_phecode.binary.feather
+phecode_binary_file: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/sd_samples_phecode.binary.txt.gz
+phecode_binary_feather_file: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/sd_samples_phecode.binary.feather
 phecode_map_file: /data100t1/share/synthetic-deriv/phecodes/ICD_Phecode_mapping.csv # Map between ICD codes and Phecodes and corresponding Phecode strings
 demographics_file: /data100t1/share/synthetic-deriv/demographic-releases/2025-mar-19/sd_demographics.csv.gz
 
@@ -43,8 +43,8 @@ demographics_file: /data100t1/share/synthetic-deriv/demographic-releases/2025-ma
 # hpp_depth_of_record_path: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/depth_of_record_in_sd.csv
 
 # Celiac project
-phecode_binary_file: /data100t1/home/biand/Projects/Celiac_Project/data/phecode_before_positive_1113.csv.gz
-phecode_binary_feather_file: /data100t1/home/biand/Projects/Celiac_Project/data/binary_phecode_1113.feather
+#phecode_binary_file: /data100t1/home/biand/Projects/Celiac_Project/data/phecode_before_positive_1113.csv.gz
+#phecode_binary_feather_file: /data100t1/home/biand/Projects/Celiac_Project/data/binary_phecode_1113.feather
 case_path: /data100t1/home/emerson/PheMINE/celiac_cases_manual_review.txt
 control_exclusion_list: /data100t1/home/emerson/PheMINE/celiac_control_exclusion_grids.txt
 depth_of_record_path: /data100t1/home/biand/Projects/Celiac_Project/data/grid_depth_1113.csv
