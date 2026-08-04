@@ -15,10 +15,10 @@ Importing data...
 
 Finding matches...
 
-Removed 2 cases with no matched controls
-Saved 86 training pairs to results/lr_celiac_1000/case_control_pairs_celiac_1000_train.txt
-Saved 22 test pairs to results/lr_celiac_1000/case_control_pairs_celiac_1000_test.txt
+Removed 3 cases with no matched controls
+Saved 237 training pairs to results/lr_celiac_1000/case_control_pairs_celiac_1000_train.txt
+Saved 60 test pairs to results/lr_celiac_1000/case_control_pairs_celiac_1000_test.txt
 
-# Done. Finished in 1.19 minutes
+# Done. Finished in 2.50 minutes
 
 

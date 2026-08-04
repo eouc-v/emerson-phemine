@@ -12,15 +12,15 @@ python src/phecode_enrichment_with_permutation.py --control_fn results/lr_celiac
 # - phecode_binary_feather_file: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/sd_samples_phecode.binary.feather
 
 # Load list of cases and controls
-# - N cases=86
-# - Control file: 86
+# - N cases=237
+# - Control file: 237
 
 # Load binary phecode table (lazy loading with polars)
 # - Binary phecode table loaded (lazy). N phecodes: 1877
 
 # Pre-loading relevant samples into memory for fast access
-# - Loading 917 relevant samples into memory
-# - Data loaded into memory. Shape: (916, 1877)
+# - Loading 2542 relevant samples into memory
+# - Data loaded into memory. Shape: (2539, 1877)
 
 # Calculate frequency of each phecode in cases
 
@@ -28,4 +28,4 @@ python src/phecode_enrichment_with_permutation.py --control_fn results/lr_celiac
 
 # Calcualte p values
 
-# Done. Finished in 37.10 seconds
+# Done. Finished in 1.17 minutes
