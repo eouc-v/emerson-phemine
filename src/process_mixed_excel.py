@@ -41,8 +41,10 @@ def main():
     diagnosis_df = diagnosis_df.rename( columns={'Patient ID':'grid','Diagnosis':'diagnosis'} )
     #extract all the patients where the diagnosis is 'Yes', or any case variation of it
     cases_df = diagnosis_df[ ( diagnosis_df['diagnosis'] == 'Yes' ) ]
-    #remove all columns other than the one containing patient GRIDs
-    cases_df = cases_df['grid'].str.strip()
+    #remove all columns other than the one containing patient GRIDs and reset index
+    cases_df = cases_df[['grid']]
+    #strip all grids
+    cases_df['grid'] = cases_df['grid'].str.strip()
     #load control exclusion and fuzzy cases (deprecated)
     ###cutoff_df = pd.read_csv(args.cutoff_path)
     primary_exclusion_df = pd.read_csv(args.control_exclusion_path,header=None)
@@ -54,13 +56,9 @@ def main():
     exclusion_df = exclusion_df['grid']
     exclusion_df = pd.concat([exclusion_df,primary_exclusion_df])
     exclusion_df["grid"] = exclusion_df["grid"].str.strip()
-    print("exclusion dataframe:")
-    print(exclusion_df)
-    print("cases dataframe:")
-    print(cases_df)
     #export results to csv
-    #cases_df.to_csv(case_path,index=False)
-    #exclusion_df.to_csv(exclusion_path,index=False)
+    cases_df.to_csv(case_path,index=False)
+    exclusion_df.to_csv(exclusion_path,index=False)
     
 if __name__ == '__main__':
 	main()    
