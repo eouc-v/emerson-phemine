@@ -21,13 +21,13 @@ excluded_codes: # List of ICD codes and Phecodes to exclude from the ML pipeline
     # - 'F50.01'
     # - 'F50.02'
     #- '307.0' #stuttering
-	- '579.0' #icd-9 for celiac
-	- 'K90.0' #icd-10 for celiac
+    - '579.0' #icd-9 for celiac
+    - 'K90.0' #icd-10 for celiac
   Phecode:
     # - '305.21'
     # - '305.2'
     #- '313.2' #tics and stuttering
-	#- '557.1' #phecode for celiac disease. not excluded because it would also exclude tropical sprue
+    #- '557.1' #phecode for celiac disease. not excluded because it would also exclude tropical sprue
 
 # Data file paths (project agnostic)
 phecode_binary_file: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/sd_samples_phecode.binary.txt.gz
