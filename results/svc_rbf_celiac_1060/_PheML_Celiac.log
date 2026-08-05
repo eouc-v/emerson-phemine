@@ -1,0 +1,35 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/svc_rbf_celiac_1060 --trait Celiac --output_prefix celiac_1060 --model_type SVC --matched_controls_for_ML 1 --n_controls_per_case 4 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/svc_rbf_celiac_1060
+# - trait: Celiac
+# - output_prefix: celiac_1060
+# - model_type: SVC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 4
+# - kernel: rbf
+This model is using the rbf kernel
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 1471 relevant samples (cases + controls)...
+Number of training samples: 1176
+Number of testing samples: 295
+Number of features: 229
+Training the model...
+Best trial parameters: {'C': 10}
+Best cross-validation accuracy: 0.8749909844933285
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for SVC model...
+Saved permutation importance results to results/svc_rbf_celiac_1060/celiac_1060_SVC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/svc_rbf_celiac_1060/celiac_1060_SVC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x77047f764cd0>
+Precision is: 0.72
+AUC is: 0.91
+Saving model...
+Done. Model building completed.

@@ -1,0 +1,31 @@
+
+# Call used:
+python src/phecode_enrichment_with_permutation.py --control_fn results/svc_rbf_celiac_1060/case_control_pairs_celiac_1060_train.txt --output_path results/svc_rbf_celiac_1060 --output_prefix celiac_1060 --n_permute 10000
+
+# Arguments used:
+# - case_fn: ./sample_data/case_list.txt
+# - control_fn: results/svc_rbf_celiac_1060/case_control_pairs_celiac_1060_train.txt
+# - output_path: results/svc_rbf_celiac_1060
+# - output_prefix: celiac_1060
+# - control_delimiter: tab
+# - n_permute: 10000
+# - phecode_binary_feather_file: /data100t1/share/synthetic-deriv/phecodes/all-sd-phecodes-mar-2025/sd_samples_phecode.binary.feather
+
+# Load list of cases and controls
+# - N cases=237
+# - Control file: 237
+
+# Load binary phecode table (lazy loading with polars)
+# - Binary phecode table loaded (lazy). N phecodes: 1877
+
+# Pre-loading relevant samples into memory for fast access
+# - Loading 2542 relevant samples into memory
+# - Data loaded into memory. Shape: (2539, 1877)
+
+# Calculate frequency of each phecode in cases
+
+# Calculate frequency of each phecode in controls with permutation
+
+# Calcualte p values
+
+# Done. Finished in 1.27 minutes
