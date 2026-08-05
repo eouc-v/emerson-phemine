@@ -1,0 +1,24 @@
+
+# Call used:
+python src/find_matched_controls.py --icd_count -1 --result_path results/lr_celiac_1030 --result_filename case_control_pairs_celiac_1030 --control_exclusion_list /data100t1/home/emerson/PheMINE/celiac_control_exclusion_grids.txt
+
+# Arguments used:
+# - icd_count: -1
+# - result_path: results/lr_celiac_1030
+# - result_filename: case_control_pairs_celiac_1030
+# - case_path: /data100t1/home/emerson/PheMINE/celiac_cases_manual_review.txt
+# - demographics_file: /data100t1/share/synthetic-deriv/demographic-releases/2025-mar-19/sd_demographics.csv.gz
+# - depth_of_record_path: /data100t1/home/biand/Projects/Celiac_Project/data/grid_depth_1113.csv
+# - control_exclusion_list: /data100t1/home/emerson/PheMINE/celiac_control_exclusion_grids.txt
+# - train_split_ratio: 0.8
+Importing data...
+
+Finding matches...
+
+Removed 3 cases with no matched controls
+Saved 237 training pairs to results/lr_celiac_1030/case_control_pairs_celiac_1030_train.txt
+Saved 60 test pairs to results/lr_celiac_1030/case_control_pairs_celiac_1030_test.txt
+
+# Done. Finished in 2.98 minutes
+
+
