@@ -1,0 +1,68 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/rf_celiac_1080 --trait Celiac --output_prefix celiac_1080 --model_type RC --matched_controls_for_ML 1 --n_controls_per_case 4 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/rf_celiac_1080
+# - trait: Celiac
+# - output_prefix: celiac_1080
+# - model_type: RC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 4
+# - kernel: rbf
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 1471 relevant samples (cases + controls)...
+Number of training samples: 1176
+Number of testing samples: 295
+Number of features: 229
+Training the model...
+Best trial parameters: {'alpha': 0.5}
+Best cross-validation accuracy: 0.8622286332491887
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for RC model...
+Saved permutation importance results to results/rf_celiac_1080/celiac_1080_RC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/rf_celiac_1080/celiac_1080_RC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x7a3f064ac550>
+Precision is: 0.79
+AUC is: 0.79
+Saving model...
+Done. Model building completed.
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/rf_celiac_1080 --trait Celiac --output_prefix celiac_1080 --model_type RF --matched_controls_for_ML 1 --n_controls_per_case 4 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/rf_celiac_1080
+# - trait: Celiac
+# - output_prefix: celiac_1080
+# - model_type: RF
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 4
+# - kernel: rbf
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 1471 relevant samples (cases + controls)...
+Number of training samples: 1176
+Number of testing samples: 295
+Number of features: 229
+Training the model...
+Best trial parameters: {'n_estimators': 50, 'max_depth': 30, 'min_samples_split': 2, 'min_samples_leaf': 2, 'bootstrap': True}
+Best cross-validation accuracy: 0.8622466642625316
+Reading phecode map...
+Plotting model results...
+Loaded backend agg version v2.2.
+Saved top 10 feature importance plot to results/rf_celiac_1080/celiac_1080_rf_feature_importance_top10.png
+Computing permutation importance for RF model...
+Saved permutation importance results to results/rf_celiac_1080/celiac_1080_RF_permutation_importance.csv
+Saved permutation importance plot to results/rf_celiac_1080/celiac_1080_RF_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x7ee0377c3250>
+Precision is: 0.70
+AUC is: 0.92
+Saving model...
+Done. Model building completed.
