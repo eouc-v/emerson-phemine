@@ -1,0 +1,34 @@
+
+# Call used:
+python src/pheML_develop.py --data_folder data --output_folder results/lsvc_stutter_0390 --trait stutter --output_prefix stutter_0390 --model_type LSVC --matched_controls_for_ML 1 --n_controls_per_case 4 --kernel rbf
+
+# Arguments used:
+# - data_folder: data
+# - output_folder: results/lsvc_stutter_0390
+# - trait: stutter
+# - output_prefix: stutter_0390
+# - model_type: LSVC
+# - matched_controls_for_ML: 1
+# - n_controls_per_case: 4
+# - kernel: rbf
+Preparing data for model development...
+Loading phecode data with Polars (lazy mode)...
+Loading 5581 relevant samples (cases + controls)...
+Number of training samples: 4425
+Number of testing samples: 1108
+Number of features: 19
+Training the model...
+Best trial parameters: {'C': 10}
+Best cross-validation accuracy: 0.8894915254237288
+Reading phecode map...
+Plotting model results...
+Model does not have feature_importances_ attribute.
+Computing permutation importance for LSVC model...
+Saved permutation importance results to results/lsvc_stutter_0390/stutter_0390_LSVC_permutation_importance.csv
+Loaded backend agg version v2.2.
+Saved permutation importance plot to results/lsvc_stutter_0390/stutter_0390_LSVC_permutation_importance_top15.png
+locator: <matplotlib.ticker.AutoLocator object at 0x72b046502d90>
+Precision is: 0.73
+AUC is: 0.90
+Saving model...
+Done. Model building completed.
